@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class HeadLook : MonoBehaviour
 {
     private void OnApplicationFocus(bool focus)
     {
@@ -18,12 +18,19 @@ public class MouseLook : MonoBehaviour
 
     private void Update()
     {
+        Vector3 localEulerAngles = transform.localEulerAngles;
+
+        // mouse
         if (Cursor.lockState == CursorLockMode.Locked)
         {
-            Vector3 localEulerAngles = transform.localEulerAngles;
             localEulerAngles.y = localEulerAngles.y + Input.GetAxisRaw("Mouse X");
             localEulerAngles.x = localEulerAngles.x - Input.GetAxisRaw("Mouse Y");
-            transform.localEulerAngles = localEulerAngles;
         }
+
+        // controller
+        localEulerAngles.y = localEulerAngles.y + Input.GetAxis("Look X");
+        localEulerAngles.x = localEulerAngles.x + Input.GetAxis("Look Y");
+
+        transform.localEulerAngles = localEulerAngles;
     }
 }

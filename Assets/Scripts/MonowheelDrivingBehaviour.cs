@@ -6,6 +6,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private float motorTorque = 1000.0f;
 
     [SerializeField]
+    private float brakeTorque = 500.0f;
+
+    [SerializeField]
     private Transform wheelMeshTransform = null;
 
     [SerializeField]
@@ -49,7 +52,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
             currentSpeed = rigidbody.velocity.magnitude;
         }
 
-        UpdateAcceleration(currentSpeed);
+        UpdateAcceleration();
         UpdateTurning(currentSpeed);
         UpdateEngineSound(currentSpeed);
     }
@@ -57,29 +60,12 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     /// <summary>
     ///     Handles input and updating of the vehicle's forward and braking acceleration.
     /// </summary>
-    private void UpdateAcceleration(float currentSpeed)
+    private void UpdateAcceleration()
     {
         if (wheelCollider != null)
         {
-            // input handling
-            if (Input.GetKey(KeyCode.W))
-            {
-                // forward
-                wheelCollider.motorTorque = motorTorque;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                // braking
-                if (currentSpeed > 0.0f)
-                {
-                    wheelCollider.motorTorque = -(motorTorque * 0.5f);
-                }
-            }
-            else
-            {
-                // coasting
-                wheelCollider.motorTorque = 0.0f;
-            }
+            wheelCollider.motorTorque = motorTorque * Input.GetAxis("Accelerator");
+            wheelCollider.brakeTorque = brakeTorque * Input.GetAxis("Brake");
 
             // wheel mesh rotation
             if (wheelMeshTransform != null)
@@ -105,19 +91,15 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     /// </summary>
     private void UpdateTurning(float currentSpeed)
     {
-        // input handling
-        if (Input.GetKey(KeyCode.A))
+        float leanAmount = Input.GetAxis("Lean");
+
+        // input handler
+        if (Mathf.Abs(leanAmount) > 0.0f)
         {
-            // lean left
-            leanAngle = leanAngle + (velocityLeanSpeed.Evaluate(currentSpeed) * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            // lean right
-            leanAngle = leanAngle - (velocityLeanSpeed.Evaluate(currentSpeed) * Time.deltaTime);
+            leanAngle = leanAngle - (velocityLeanSpeed.Evaluate(currentSpeed) * leanAmount * Time.deltaTime);
         }
 
-        // clamp the lean angle based on speed
+        // clamp the lean angle based on current speed
         float absoluteMaximumLeanAngle = velocityLeanAngle.Evaluate(currentSpeed);
         leanAngle = Mathf.Clamp(leanAngle, -absoluteMaximumLeanAngle, absoluteMaximumLeanAngle);
 
