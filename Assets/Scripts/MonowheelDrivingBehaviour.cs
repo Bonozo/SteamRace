@@ -29,6 +29,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         new Keyframe(15.0f, 15.0f)
     });
 
+    [SerializeField]
+    private AudioSource engineAudioSource = null;
+
     private float leanAngle;
 
     private void FixedUpdate()
@@ -48,6 +51,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
 
         UpdateAcceleration(currentSpeed);
         UpdateTurning(currentSpeed);
+        UpdateEngineSound(currentSpeed);
     }
 
     /// <summary>
@@ -82,6 +86,17 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
             {
                 wheelMeshTransform.Rotate(Vector3.up, wheelCollider.rpm / 60 * 360 * Time.deltaTime, Space.Self);
             }
+        }
+    }
+
+    /// <summary>
+    ///     Handles the engine audio.
+    /// </summary>
+    private void UpdateEngineSound(float currentSpeed)
+    {
+        if (engineAudioSource != null)
+        {
+            engineAudioSource.pitch = 0.75f + (currentSpeed * 0.075f);
         }
     }
 
