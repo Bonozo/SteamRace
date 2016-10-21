@@ -2,6 +2,8 @@
 
 public class CameraController : MonoBehaviour
 {
+    private static Vector3 headLookRotation = Vector3.zero;
+
     [SerializeField]
     private Transform followTransform = null;
 
@@ -10,8 +12,6 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private bool stabilise = true;
-
-    private Vector3 headLookRotation = Vector3.zero;
 
     private void LateUpdate()
     {
@@ -39,17 +39,17 @@ public class CameraController : MonoBehaviour
             headLookRotation.y = headLookRotation.y + Input.GetAxis("Look X");
             headLookRotation.x = headLookRotation.x + Input.GetAxis("Look Y");
 
-            // get the follow transform's parent transform so we can delta rotate from it
-            Vector3 followParentEulerAngles = followTransform.parent.eulerAngles;
+            // get the follow transform's rotation so we can delta rotate from it
+            Vector3 followEulerAngles = followTransform.eulerAngles;
 
             // z-axis stabilisation
             if (stabilise)
             {
-                followParentEulerAngles.z = 0.0f;
+                followEulerAngles.z = 0.0f;
             }
 
             // apply the look rotation to the camera
-            transform.eulerAngles = followParentEulerAngles + headLookRotation;
+            transform.eulerAngles = followEulerAngles + headLookRotation;
         }
     }
 
