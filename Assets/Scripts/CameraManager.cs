@@ -31,7 +31,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetButtonDown("SelectNextCamera"))
         {
             SelectNextCamera();
         }
