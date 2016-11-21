@@ -102,7 +102,7 @@ Material:
       second: 0.02
     - first:
         name: _Shininess
-      second: 0.03
+      second: 0.052
     - first:
         name: _SmoothnessTextureChannel
       second: 1
@@ -127,4 +127,4 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _SpecColor
-      second: {r: 0.5551724, g: 0.5551724, b: 0.5551724, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}

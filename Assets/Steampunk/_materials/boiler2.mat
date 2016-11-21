@@ -30,11 +30,11 @@ Material:
     m_Floats:
     - first:
         name: _Shininess
-      second: 1
+      second: 0.04
     m_Colors:
     - first:
         name: _Color
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _SpecColor
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.2724138, g: 0.2724138, b: 0.2724138, a: 1}
