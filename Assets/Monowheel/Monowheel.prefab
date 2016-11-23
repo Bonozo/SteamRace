@@ -160,6 +160,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000010397739310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013541560762}
+  m_Layer: 0
+  m_Name: ThirdPersonCloseCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000010493401276
 GameObject:
   m_ObjectHideFlags: 1
@@ -527,6 +542,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000012146760742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012905246332}
+  m_Layer: 0
+  m_Name: ThirdPersonFarCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012284485192
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +837,49 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000014227958360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012680450592}
+  m_Layer: 0
+  m_Name: FirstPersonCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000014230549160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010607220574}
+  m_Layer: 0
+  m_Name: CamPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000010607220574
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014230549160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011208548940}
+  m_RootOrder: 5
 --- !u!4 &4000010818605392
 Transform:
   m_ObjectHideFlags: 1
@@ -840,12 +913,16 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011934933286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -7.71}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012173654908}
   - {fileID: 4000011772510842}
+  - {fileID: 4000012680450592}
+  - {fileID: 4000013541560762}
+  - {fileID: 4000012905246332}
+  - {fileID: 4000010607220574}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011478787146
@@ -1147,6 +1224,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011772510842}
   m_RootOrder: 3
+--- !u!4 &4000012680450592
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014227958360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011208548940}
+  m_RootOrder: 2
 --- !u!4 &4000012715893618
 Transform:
   m_ObjectHideFlags: 1
@@ -1199,6 +1289,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011560331502}
   m_RootOrder: 1
+--- !u!4 &4000012905246332
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012146760742}
+  m_LocalRotation: {x: 0.13052616, y: -0, z: -0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 15, z: -30}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011208548940}
+  m_RootOrder: 4
 --- !u!4 &4000013019241776
 Transform:
   m_ObjectHideFlags: 1
@@ -1270,7 +1373,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010256283384}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.5579734, y: -0.14759836, z: 0.0033197945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1296,7 +1399,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010793371302}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.6479124, y: 4.6568236, z: -0.000233863}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1374,6 +1477,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012459774236}
   m_RootOrder: 0
+--- !u!4 &4000013541560762
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010397739310}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 12.5, z: -15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011208548940}
+  m_RootOrder: 3
 --- !u!4 &4000013611744672
 Transform:
   m_ObjectHideFlags: 1
@@ -2884,6 +3000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brakeTorque: 500
   wheelMeshTransform: {fileID: 4000012199753516}
+  tailfinTransform: {fileID: 4000013230608222}
   wheelCollider: {fileID: 146000012615962672}
   rigidbody: {fileID: 54000011336600248}
   motorTorqueCurve:
@@ -2910,16 +3027,16 @@ MonoBehaviour:
   velocityLeanAngle:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - time: 0.5
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 7.5
+    - time: 8
       value: 45
-      inSlope: 0
+      inSlope: 6
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 5
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0

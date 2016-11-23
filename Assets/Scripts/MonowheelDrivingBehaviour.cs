@@ -9,6 +9,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private Transform wheelMeshTransform = null;
 
     [SerializeField]
+    private Transform tailfinTransform = null;
+
+    [SerializeField]
     private WheelCollider wheelCollider = null;
 
     [SerializeField]
@@ -61,6 +64,11 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         UpdateEngineSound();
     }
 
+    private void Update()
+    {
+        UpdateTailfinAngle();
+    }
+
     /// <summary>
     ///     Handles input and updating of the vehicle's forward and braking acceleration.
     /// </summary>
@@ -106,6 +114,18 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     }
 
     /// <summary>
+    ///     Handles the tailfin angle.
+    /// </summary>
+    private void UpdateTailfinAngle()
+    {
+        float desiredTailfinAngle = -Input.GetAxis("Lean") * 30.0f;
+
+        Vector3 localEulerAngles = tailfinTransform.localEulerAngles;
+        localEulerAngles.y = Mathf.LerpAngle(localEulerAngles.y, desiredTailfinAngle, Time.deltaTime * 5.0f);
+        tailfinTransform.localEulerAngles = localEulerAngles;
+    }
+
+    /// <summary>
     ///     Handles input and updating of the vehicle's turning.
     /// </summary>
     private void UpdateTurning()
@@ -124,7 +144,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
 
         // sets the lean angle on the transform
         Vector3 localEulerAngles = transform.localEulerAngles;
-        localEulerAngles.z = leanAngle;
+        localEulerAngles.z = Mathf.LerpAngle(localEulerAngles.z, leanAngle, Time.fixedDeltaTime * 10.0f);
         transform.localEulerAngles = localEulerAngles;
     }
 }
