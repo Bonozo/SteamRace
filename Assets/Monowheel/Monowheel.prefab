@@ -2882,11 +2882,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f224346758c7844fa350e44df20d700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorTorque: 1500
   brakeTorque: 500
   wheelMeshTransform: {fileID: 4000012199753516}
   wheelCollider: {fileID: 146000012615962672}
   rigidbody: {fileID: 54000011336600248}
+  motorTorqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1000
+      inSlope: 100
+      outSlope: 100
+      tangentMode: 10
+    - time: 15
+      value: 2500
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 25
+      value: 1000
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   velocityLeanAngle:
     serializedVersion: 2
     m_Curve:
@@ -2967,11 +2987,11 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 2
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.8
     m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 5
-    m_Stiffness: 2.5
+    m_Stiffness: 5
   m_Enabled: 1

@@ -3,9 +3,6 @@
 public class MonowheelDrivingBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float motorTorque = 1000.0f;
-
-    [SerializeField]
     private float brakeTorque = 500.0f;
 
     [SerializeField]
@@ -16,6 +13,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
 
     [SerializeField]
     private new Rigidbody rigidbody = null;
+
+    [SerializeField]
+    private AnimationCurve motorTorqueCurve = new AnimationCurve();
 
     [SerializeField]
     private AnimationCurve velocityLeanAngle = new AnimationCurve(new[]
@@ -68,7 +68,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     {
         if (wheelCollider != null)
         {
-            wheelCollider.motorTorque = motorTorque * Input.GetAxis("Accelerator");
+            wheelCollider.motorTorque = motorTorqueCurve.Evaluate(currentSpeed) * Input.GetAxis("Accelerator");
             wheelCollider.brakeTorque = brakeTorque * Input.GetAxis("Brake");
 
             // wheel mesh rotation
