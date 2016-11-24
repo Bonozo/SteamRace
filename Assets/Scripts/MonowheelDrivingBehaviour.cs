@@ -36,6 +36,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     });
 
     [SerializeField]
+    private AnimationCurve angularVelocityCurve = new AnimationCurve();
+
+    [SerializeField]
     private AnimationCurve gyroscopicPickupRate = new AnimationCurve();
 
     [SerializeField]
@@ -47,9 +50,6 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // set angular velocity calculated from lean angle and speed
-        rigidbody.angularVelocity = Vector3.up * -leanAngle * rigidbody.velocity.magnitude * 0.25f * Time.fixedDeltaTime;
-
         // set current and delta speed values
         if (rigidbody != null)
         {
@@ -57,6 +57,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
             currentSpeed = rigidbody.velocity.magnitude;
             deltaSpeed = currentSpeed - prevousSpeed;
         }
+
+        // set angular velocity calculated from lean angle and speed
+        rigidbody.angularVelocity = Vector3.up * -leanAngle * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude) * Time.fixedDeltaTime;
 
         UpdateAcceleration();
         UpdateGyroscopicPickup();

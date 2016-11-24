@@ -3755,7 +3755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f224346758c7844fa350e44df20d700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brakeTorque: 500
+  brakeTorque: 750
   wheelMeshTransform: {fileID: 4000012199753516}
   tailfinTransform: {fileID: 4000013230608222}
   wheelCollider: {fileID: 146000012615962672}
@@ -3774,7 +3774,7 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - time: 25
-      value: 1000
+      value: 1250
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3786,12 +3786,12 @@ MonoBehaviour:
     m_Curve:
     - time: 0.5
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 8
+      inSlope: 10
+      outSlope: 10
+      tangentMode: 21
+    - time: 5
       value: 45
-      inSlope: 6
+      inSlope: 10
       outSlope: 0
       tangentMode: 5
     m_PreInfinity: 2
@@ -3810,13 +3810,34 @@ MonoBehaviour:
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 20
-      value: 30
+    - time: 30
+      value: 60
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 30
-      value: 40
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  angularVelocityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 10
+      value: 1.25
+      inSlope: -0.08106232
+      outSlope: -0.08106232
+      tangentMode: 0
+    - time: 20
+      value: 0.75
+      inSlope: -0.075
+      outSlope: -0.075
+      tangentMode: 10
+    - time: 25
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3879,7 +3900,7 @@ WheelCollider:
     m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 5
-    m_Stiffness: 5
+    m_Stiffness: 10
   m_Enabled: 1
 --- !u!198 &198000011841129048
 ParticleSystem:
