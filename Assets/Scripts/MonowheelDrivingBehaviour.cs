@@ -95,6 +95,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         if (engineAudioSource != null)
         {
             engineAudioSource.pitch = 0.75f + (currentSpeed * 0.075f);
+            engineAudioSource.volume = 0.5f + (Input.GetAxis("Accelerator") * 0.5f);
         }
     }
 
