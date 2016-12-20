@@ -67,8 +67,27 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         UpdateEngineSound();
     }
 
+    //Run Along Normals.
+    private void UpdateCollision()
+    {
+        RaycastHit hit;
+
+        // cast a ray to the right of the player object
+        if (Physics.Raycast(transform.position+ new Vector3(0,2,0), transform.TransformDirection(Vector3.forward), out hit, 5))
+        {
+            // orient the Moving Object's Left direction to Match the Normals on his Right
+            var RunnerRotation = Quaternion.FromToRotation(Vector3.left, hit.normal);
+
+            //Smooth rotation
+            //transform.rotation = Quaternion.Slerp(transform.rotation, RunnerRotation, Time.deltaTime * 10);
+            //transform.RotateAround(Vector3.up, 10.0f);
+        }
+    }
+
+
     private void Update()
     {
+        //UpdateCollision();
         UpdateTailfinAngle();
     }
 
@@ -79,8 +98,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     {
         if (wheelCollider != null)
         {
-            wheelCollider.motorTorque = motorTorqueCurve.Evaluate(currentSpeed) * Input.GetAxis("Accelerator");
-            wheelCollider.brakeTorque = brakeTorque * Input.GetAxis("Brake");
+            wheelCollider.motorTorque = motorTorqueCurve.Evaluate(currentSpeed) * Input.GetAxis("Accelerator")
+                + -motorTorqueCurve.Evaluate(currentSpeed) * Input.GetAxis("Brake");
+            //wheelCollider.brakeTorque = brakeTorque * Input.GetAxis("Brake");
 
             // wheel mesh rotation
             if (wheelMeshTransform != null)
@@ -151,4 +171,17 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         localEulerAngles.z = Mathf.LerpAngle(localEulerAngles.z, leanAngle, Time.fixedDeltaTime * 10.0f);
         transform.localEulerAngles = localEulerAngles;
     }
+
+/*
+    void OnCollisionStay(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+        //if (collision.relativeVelocity.magnitude > 2)
+        //    audio.Play();
+
+    }
+*/
 }
