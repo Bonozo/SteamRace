@@ -155,6 +155,13 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     /// </summary>
     private void UpdateTurning()
     {
+        float leanMultiplier = 1.0f;
+        if(Input.GetButton("LeanHard"))
+        {
+            Debug.Log("Leanhard");
+            leanMultiplier = 1.5f;
+        }
+
         float leanAmount = Input.GetAxis("Lean");
 
         // input handler
@@ -165,7 +172,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
 
         // clamp the lean angle based on current speed
         float absoluteMaximumLeanAngle = velocityLeanAngle.Evaluate(currentSpeed);
-        leanAngle = Mathf.Clamp(leanAngle, -absoluteMaximumLeanAngle, absoluteMaximumLeanAngle);
+        leanAngle = Mathf.Clamp(leanAngle, -absoluteMaximumLeanAngle * leanMultiplier, absoluteMaximumLeanAngle * leanMultiplier);
 
         // sets the lean angle on the transform
         Vector3 localEulerAngles = transform.localEulerAngles;
