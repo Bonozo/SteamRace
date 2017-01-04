@@ -59,7 +59,8 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         }
 
         // set angular velocity calculated from lean angle and speed
-        rigidbody.angularVelocity = Vector3.up * -leanAngle * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude) * Time.fixedDeltaTime;
+        float vehicleDirection = Mathf.Sign(wheelCollider.motorTorque);
+        rigidbody.angularVelocity = Vector3.up * -leanAngle * (vehicleDirection * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude)) * Time.fixedDeltaTime;
 
         UpdateAcceleration();
         UpdateGyroscopicPickup();
