@@ -34,7 +34,7 @@ public class CharacterLeanBehaviour : MonoBehaviour
                 else if (leanAngleNormalised > 0.0f)
                 {
                     // play lean right animation at specific frame
-                    // animator.Play("Lean Right", -1, Mathf.Abs(leanAngleNormalised));
+                    animator.Play("Lean Right", -1, Mathf.Abs(leanAngleNormalised));
                 }
             }
         }
