@@ -47,6 +47,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private float currentSpeed;
     private float deltaSpeed;
     private float leanAngle;
+    private bool isGrounded;
 
     private void FixedUpdate()
     {
@@ -66,6 +67,21 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         UpdateGyroscopicPickup();
         UpdateTurning();
         UpdateEngineSound();
+        UpdateGroundDetection();
+    }
+
+    private void UpdateGroundDetection()
+    {
+        isGrounded = true;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 500.0f))
+        {
+            if (hit.distance > 0.9f)
+            {
+                isGrounded = false;
+            }
+        }
     }
 
     //Run Along Normals.
@@ -97,6 +113,11 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     /// </summary>
     private void UpdateAcceleration()
     {
+        if(isGrounded == false)
+        {
+            return;
+        }
+
         if (wheelCollider != null)
         {
             wheelCollider.motorTorque = motorTorqueCurve.Evaluate(currentSpeed) * Input.GetAxis("Accelerator")
@@ -158,7 +179,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         float leanMultiplier = 1.0f;
         if(Input.GetButton("LeanHard"))
         {
-            Debug.Log("Leanhard");
+            //Debug.Log("Leanhard");
             leanMultiplier = 1.5f;
         }
 
@@ -179,6 +200,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         localEulerAngles.z = Mathf.LerpAngle(localEulerAngles.z, leanAngle, Time.fixedDeltaTime * 10.0f);
         transform.localEulerAngles = localEulerAngles;
     }
+
 
 /*
     void OnCollisionStay(Collision collision)
