@@ -44,6 +44,12 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     [SerializeField]
     private AudioSource engineAudioSource = null;
 
+    [SerializeField]
+    private GameObject explosionObject;
+
+    [SerializeField]
+    [Tooltip("Min. negative change in speed to indicate a crash")]
+    private float crashThreshold = -4.0f;
     private float currentSpeed;
     private float deltaSpeed;
     private float leanAngle;
@@ -54,21 +60,31 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         // set current and delta speed values
         if (rigidbody != null)
         {
-            float prevousSpeed = currentSpeed;
+            float prevSpeed = currentSpeed;
             currentSpeed = rigidbody.velocity.magnitude;
-            deltaSpeed = currentSpeed - prevousSpeed;
+            deltaSpeed = currentSpeed - prevSpeed;
         }
 
         // set angular velocity calculated from lean angle and speed
         float vehicleDirection = Mathf.Sign(wheelCollider.motorTorque);
         rigidbody.angularVelocity = Vector3.up * -leanAngle * (vehicleDirection * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude)) * Time.fixedDeltaTime;
 
+        UpdateGroundDetection();
+        UpdateCrashDetection();
         UpdateAcceleration();
         UpdateGyroscopicPickup();
         UpdateTurning();
         UpdateEngineSound();
-        UpdateGroundDetection();
     }
+
+    private void UpdateCrashDetection()
+    {
+        if(deltaSpeed < crashThreshold)
+        {
+            Instantiate(explosionObject, transform.position, Quaternion.identity);
+        }
+    }
+
 
     private void UpdateGroundDetection()
     {
