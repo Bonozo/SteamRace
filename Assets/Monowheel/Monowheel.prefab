@@ -1069,6 +1069,7 @@ GameObject:
   - component: {fileID: 114000013345996704}
   - component: {fileID: 82000013251619846}
   - component: {fileID: 65368986470201082}
+  - component: {fileID: 82001646248527656}
   m_Layer: 0
   m_Name: Monowheel
   m_TagString: Untagged
@@ -5949,7 +5950,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 7, z: 8}
+  m_Size: {x: 1, y: 7, z: 9}
   m_Center: {x: 0, y: 5.5, z: 0}
 --- !u!82 &82000013251619846
 AudioSource:
@@ -6002,6 +6003,87 @@ AudioSource:
     - serializedVersion: 2
       time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82001646248527656
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011934933286}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 160461293edb1814684cbc4c7f5a1243,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: e4a04db267a756d45a74d8bf908c908d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.25
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 100
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6240,10 +6322,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   engineAudioSource: {fileID: 82000013251619846}
+  impactSfx: {fileID: 82001646248527656}
   explosionObject: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 2}
-  crashThreshold: -4
+  crashThreshold: 18
   dragOnGround: 0.5
+  maxSpeed: 25
   currentSpeed: 0
   altitude: 0
 --- !u!114 &114000013469615668

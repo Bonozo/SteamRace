@@ -45,15 +45,20 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private AudioSource engineAudioSource = null;
 
     [SerializeField]
+    private AudioSource impactSfx = null;
+
+    [SerializeField]
     private GameObject explosionObject;
 
     [SerializeField]
-    [Tooltip("Min. negative change in speed to indicate a crash")]
+    [Tooltip("Min. speed before halt or bounceback to determine crash")]
     private float crashThreshold = -4.0f;
 
     [SerializeField]
-    [Tooltip("For the WheelCollider")]
-    public float dragOnGround = 0.5f;
+    [Tooltip("Drag coefficient for when not in air")]
+    private float dragOnGround = 0.5f;
+
+    public float maxSpeed = 20.0f;
 
     public float currentSpeed;
     public float altitude;
@@ -69,9 +74,9 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         // set current and delta speed values
+        float prevSpeed = currentSpeed;
         if (rigidbody != null)
         {
-            float prevSpeed = currentSpeed;
             currentSpeed = rigidbody.velocity.magnitude;
             deltaSpeed = currentSpeed - prevSpeed;
         }
@@ -81,18 +86,34 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         rigidbody.angularVelocity = Vector3.up * -leanAngle * (vehicleDirection * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude)) * Time.fixedDeltaTime;
 
         UpdateGroundDetection();
-        UpdateCrashDetection();
+        UpdateCrashDetection(prevSpeed);
         UpdateAcceleration();
+        UpdateMaxSpeed();
         UpdateGyroscopicPickup();
         UpdateTurning();
         UpdateEngineSound();
     }
 
-    private void UpdateCrashDetection()
+    private void UpdateMaxSpeed()
     {
-        if(deltaSpeed < crashThreshold)
+        if (rigidbody.velocity.magnitude > maxSpeed)
         {
-            Instantiate(explosionObject, transform.position, Quaternion.identity);
+            rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+        }
+    }
+
+    private void UpdateCrashDetection(float prevSpeed)
+    {
+        Vector3 velocity = rigidbody.velocity;
+        Vector3 localVel = transform.InverseTransformDirection(velocity);
+
+        if(prevSpeed > crashThreshold)
+        {
+            // if halted or bounced back after going fast, we crashed
+            if (localVel.z <= 0.0f)
+            {
+                Instantiate(explosionObject, transform.position, Quaternion.identity);
+            }
         }
     }
 
@@ -214,7 +235,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         if(Input.GetButton("LeanHard"))
         {
             //Debug.Log("Leanhard");
-            leanMultiplier = 1.5f;
+            leanMultiplier = 1.3f;
         }
 
         float leanAmount = Input.GetAxis("Lean");
@@ -235,17 +256,30 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         transform.localEulerAngles = localEulerAngles;
     }
 
-
-/*
-    void OnCollisionStay(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        if (collision.gameObject.tag == "Ramp")
         {
-            Debug.DrawRay(contact.point, contact.normal, Color.white);
+            rigidbody.velocity *= 1.2f;
+            return;
         }
-        //if (collision.relativeVelocity.magnitude > 2)
-        //    audio.Play();
 
+        // process slowdown on bump.  note: adjust bump sensitivity with relativeVelocity 
+        if (collision.relativeVelocity.magnitude >= 0)
+        {
+            rigidbody.velocity *= 0.8f;
+
+            impactSfx.Play();
+        }
     }
-*/
+
+    /*
+        void OnCollisionStay(Collision collision)
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                Debug.DrawRay(contact.point, contact.normal, Color.white);
+            }
+        }
+    */
 }
