@@ -26,7 +26,7 @@ public class Dashboard : MonoBehaviour {
         if(drivingBehavior)
         {
             speedometerText.text = "Speed " + (int)drivingBehavior.currentSpeed;
-            altitudeText.text = "Altitude " + drivingBehavior.altitude;
+            altitudeText.text = "Altitude " + drivingBehavior.altitude.ToString("F2");
             if(drivingBehavior.altitude > 1.0f)
             {
                 altitudeText.color = Color.red;
