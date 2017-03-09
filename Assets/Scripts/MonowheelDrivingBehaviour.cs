@@ -50,10 +50,21 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     [SerializeField]
     [Tooltip("Min. negative change in speed to indicate a crash")]
     private float crashThreshold = -4.0f;
-    private float currentSpeed;
+
+    [SerializeField]
+    [Tooltip("For the WheelCollider")]
+    public float dragOnGround = 0.5f;
+
+    public float currentSpeed;
+    public float altitude;
+
     private float deltaSpeed;
     private float leanAngle;
     private bool isGrounded;
+
+    void Awake()
+    {
+    }
 
     private void FixedUpdate()
     {
@@ -93,9 +104,16 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 500.0f))
         {
-            if (hit.distance > 0.9f)
+            altitude = hit.distance;
+
+            if (altitude > 0.9f)
             {
+                rigidbody.drag = 0.0f;
                 isGrounded = false;
+            }
+            else
+            {
+                rigidbody.drag = dragOnGround;
             }
         }
     }
