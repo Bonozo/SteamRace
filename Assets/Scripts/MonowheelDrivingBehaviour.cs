@@ -66,6 +66,7 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private float deltaSpeed;
     private float leanAngle;
     private bool isGrounded;
+    private Vector3 direction;
 
     void Awake()
     {
@@ -82,8 +83,8 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         }
 
         // set angular velocity calculated from lean angle and speed
-        float vehicleDirection = Mathf.Sign(wheelCollider.motorTorque);
-        rigidbody.angularVelocity = Vector3.up * -leanAngle * (vehicleDirection * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude)) * Time.fixedDeltaTime;
+        float motorDirection = Mathf.Sign(wheelCollider.motorTorque);
+        rigidbody.angularVelocity = Vector3.up * -leanAngle * (motorDirection * angularVelocityCurve.Evaluate(rigidbody.velocity.magnitude)) * Time.fixedDeltaTime;
 
         UpdateGroundDetection();
         UpdateCrashDetection(prevSpeed);
@@ -102,15 +103,16 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         }
     }
 
+    // if halted or bounced back after going fast, we crashed
     private void UpdateCrashDetection(float prevSpeed)
     {
         Vector3 velocity = rigidbody.velocity;
-        Vector3 localVel = transform.InverseTransformDirection(velocity);
+        Vector3 prevDirection = direction;
+        direction = transform.InverseTransformDirection(velocity);
 
-        if(prevSpeed > crashThreshold)
+        if (prevSpeed > crashThreshold && prevDirection.z > 0.0f )
         {
-            // if halted or bounced back after going fast, we crashed
-            if (localVel.z <= 0.0f)
+            if (direction.z <= 0.0f)
             {
                 Instantiate(explosionObject, transform.position, Quaternion.identity);
             }
