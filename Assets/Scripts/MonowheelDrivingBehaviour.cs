@@ -24,7 +24,14 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     private AnimationCurve velocityLeanAngle = new AnimationCurve(new[]
     {
         new Keyframe(0.0f, 0.0f),
-        new Keyframe(7.5f, 45.0f)
+        new Keyframe(5.0f, 30.0f)
+    });
+
+    [SerializeField]
+    private AnimationCurve velocityLeanHardAngle = new AnimationCurve(new[]
+    {
+        new Keyframe(0.0f, 0.0f),
+        new Keyframe(3.0f, 45.0f)
     });
 
     [SerializeField]
@@ -233,13 +240,6 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
     /// </summary>
     private void UpdateTurning()
     {
-        float leanMultiplier = 1.0f;
-        if(Input.GetButton("LeanHard"))
-        {
-            //Debug.Log("Leanhard");
-            leanMultiplier = 1.3f;
-        }
-
         float leanAmount = Input.GetAxis("Lean");
 
         // input handler
@@ -249,8 +249,16 @@ public class MonowheelDrivingBehaviour : MonoBehaviour
         }
 
         // clamp the lean angle based on current speed
-        float absoluteMaximumLeanAngle = velocityLeanAngle.Evaluate(currentSpeed);
-        leanAngle = Mathf.Clamp(leanAngle, -absoluteMaximumLeanAngle * leanMultiplier, absoluteMaximumLeanAngle * leanMultiplier);
+        float absoluteMaximumLeanAngle;
+        if (Input.GetButton("LeanHard"))
+        {
+            absoluteMaximumLeanAngle = velocityLeanHardAngle.Evaluate(currentSpeed);
+        }
+        else
+        {
+            absoluteMaximumLeanAngle = velocityLeanAngle.Evaluate(currentSpeed);
+        }
+        leanAngle = Mathf.Clamp(leanAngle, -absoluteMaximumLeanAngle, absoluteMaximumLeanAngle);
 
         // sets the lean angle on the transform
         Vector3 localEulerAngles = transform.localEulerAngles;

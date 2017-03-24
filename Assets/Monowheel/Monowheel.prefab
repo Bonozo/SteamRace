@@ -2347,7 +2347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1350668656744848
 GameObject:
   m_ObjectHideFlags: 1
@@ -6238,14 +6238,32 @@ MonoBehaviour:
       time: 0.5
       value: 0
       inSlope: 10
-      outSlope: 10
+      outSlope: 6.6666665
       tangentMode: 69
     - serializedVersion: 2
       time: 5
-      value: 45
-      inSlope: 10
+      value: 30
+      inSlope: 6.6666665
       outSlope: 0
       tangentMode: 5
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  velocityLeanHardAngle:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 3
+      value: 50
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
